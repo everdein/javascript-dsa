@@ -1,18 +1,19 @@
 class Node {
   constructor(value) {
-    this.value = value;
-    this.next = null;
+    this.value = value;      // Value stored in this node
+    this.next = null;        // Reference to the next node in the list
   }
 }
 
 class LinkedList {
   constructor(value) {
     const newNode = new Node(value);
-    this.head = newNode;
-    this.tail = newNode;
-    this.length = 1;
+    this.head = newNode;     // Points to the first node
+    this.tail = newNode;     // Points to the last node
+    this.length = 1;         // Tracks the number of nodes in the list
   }
 
+  // Print all values in the list
   printList() {
     let temp = this.head;
     while (temp !== null) {
@@ -21,20 +22,24 @@ class LinkedList {
     }
   }
 
+  // Print the value of the head node
   getHead() {
     console.log("Head:", this.head ? this.head.value : "null");
   }
 
+  // Print the value of the tail node
   getTail() {
     console.log("Tail:", this.tail ? this.tail.value : "null");
   }
 
+  // Empty the list
   makeEmpty() {
     this.head = null;
     this.tail = null;
     this.length = 0;
   }
 
+  // Add a node to the end of the list
   push(value) {
     const newNode = new Node(value);
     if (!this.head) {
@@ -47,6 +52,7 @@ class LinkedList {
     this.length++;
   }
 
+  // Remove the last node and return it
   pop() {
     if (!this.head) return undefined;
 
@@ -68,6 +74,7 @@ class LinkedList {
     return temp;
   }
 
+  // Add a node to the beginning of the list
   unshift(value) {
     const newNode = new Node(value);
     if (!this.head) {
@@ -80,6 +87,7 @@ class LinkedList {
     this.length++;
   }
 
+  // Remove the first node and return it
   shift() {
     if (!this.head) return undefined;
 
@@ -95,6 +103,7 @@ class LinkedList {
     return temp;
   }
 
+  // Convert the list to an array of values
   toArray() {
     const values = [];
     let temp = this.head;
@@ -105,6 +114,7 @@ class LinkedList {
     return values;
   }
 
+  // Insert a node at a given index
   insert(index, value) {
     if (index < 0 || index > this.length) return false;
     if (index === 0) return this.unshift(value);
@@ -121,6 +131,7 @@ class LinkedList {
     return true;
   }
 
+  // Reverse the entire list
   reverse() {
     let temp = this.head;
     this.head = this.tail;
@@ -135,6 +146,7 @@ class LinkedList {
     }
   }
 
+  // Return the middle node using the fast/slow pointer approach
   findMiddleNode() {
     let slow = this.head;
     let fast = this.head;
@@ -145,6 +157,7 @@ class LinkedList {
     return slow;
   }
 
+  // Detect if a loop exists in the list
   hasLoop() {
     let slow = this.head;
     let fast = this.head;
@@ -156,6 +169,7 @@ class LinkedList {
     return false;
   }
 
+  // Find the k-th node from the end of the list
   findKthFromEnd(k) {
     if (k < 0 || this.head === null) return null;
     let fast = this.head;
@@ -171,6 +185,7 @@ class LinkedList {
     return slow;
   }
 
+  // Remove duplicate values using a Set
   removeDuplicates() {
     let prev = null;
     let current = this.head;
@@ -187,45 +202,14 @@ class LinkedList {
     }
   }
 
+  // Convert binary number (as list of 0s and 1s) to decimal
+  binaryToDecimal() {
+    let sum = 0;
+    let current = this.head;
+    while (current) {
+      sum = (2 * sum) + current.value; // Shift left and add new bit
+      current = current.next;
+    }
+    return sum;
+  }
 }
-
-
-
-let myLinkedList = new LinkedList(1);
-myLinkedList.push(2);
-myLinkedList.push(3);
-myLinkedList.push(3);
-myLinkedList.push(4);
-myLinkedList.push(5);
-myLinkedList.push(5);
-
-
-console.log("Original list:");
-myLinkedList.printList();
-
-myLinkedList.removeDuplicates();
-
-console.log("\nList after removing duplicates:");
-myLinkedList.printList();
-
-
-
-/*
-    EXPECTED OUTPUT:
-    ----------------
-    Original list:
-    1
-    2
-    3
-    3
-    4
-    5
-    5
-    List after removing duplicates:
-    1
-    2
-    3
-    4
-    5
-
-*/
