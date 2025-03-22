@@ -170,27 +170,44 @@ class LinkedList {
     }
     return slow;
   }
+
+  removeDuplicates() {
+    let prev = null;
+    let current = this.head;
+    const seen = new Set();
+    while (current) {
+      if (seen.has(current.value)) {
+        prev.next = current.next;
+        this.length--;
+      } else {
+        seen.add(current.value);
+        prev = current;
+      }
+      current = current.next;
+    }
+  }
+
 }
+
 
 
 let myLinkedList = new LinkedList(1);
 myLinkedList.push(2);
 myLinkedList.push(3);
+myLinkedList.push(3);
 myLinkedList.push(4);
 myLinkedList.push(5);
+myLinkedList.push(5);
+
 
 console.log("Original list:");
 myLinkedList.printList();
 
-const k = 2;
-const kthNodeFromEnd = myLinkedList.findKthFromEnd(k);
+myLinkedList.removeDuplicates();
 
-console.log(`\n${k}th node from the end:`);
-if (kthNodeFromEnd) {
-  console.log(kthNodeFromEnd.value);
-} else {
-  console.log("Not found");
-}
+console.log("\nList after removing duplicates:");
+myLinkedList.printList();
+
 
 
 /*
@@ -200,8 +217,15 @@ if (kthNodeFromEnd) {
     1
     2
     3
+    3
     4
     5
-    2th node from the end:
+    5
+    List after removing duplicates:
+    1
+    2
+    3
     4
+    5
+
 */
